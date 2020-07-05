@@ -1,14 +1,12 @@
 var express = require('express');
 
 var app = express();
+const PORT = 8080;
 
-app.listen(process.env.port || 8080, ()=>{
-        console.log("Listening ... ")
+app.listen(process.env.port || PORT, ()=>{
+        console.log("Listening... ")
 });
 
-//we need to either send a response or end a response
-//get('/' means "when you recieve a get request to '/' we fire this function"
-app.get('/', function(req, res) {
-    console.log("GET req")
-    res.end()
+app.get('/', function (req, res) {
+    res.send("foo")
 })
