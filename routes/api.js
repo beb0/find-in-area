@@ -8,9 +8,11 @@ router.get('/point', function (req, res) {
 })
 
 //Create a new point
-router.post('/point', function (req, res) {
-    var person = new Person(req.body)
-    person.save()
+router.post('/point', function (req, res, next) {
+   // return a Promise, if fullfilled, returns the value if not returns error
+    Person.create(req.body).then(function (person) {
+        res.send(person)
+    }).catch(next);
 })
 
 //Update an existing point
