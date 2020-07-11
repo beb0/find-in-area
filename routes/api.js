@@ -5,7 +5,14 @@ const { findOne } = require('../models/person')
 
 //Read a list of points
 router.get('/point', function (req, res) {
-    res.send({type:'GET'})
+    Person.aggregate().near({
+        near: [parseFloat(req.query.lng), parseFloat(req.query.lat)],
+        maxDistance: 100000,
+        spherical: true,
+        distanceField: "dist.calculated"
+    }).then(function(found){
+        res.send(found)
+    })
 })
 
 //Create a new point
@@ -31,7 +38,7 @@ router.put('/point/:id', function (req, res, next) {
 router.delete('/point/:id', function (req, res, next) {
     Person.findByIdAndRemove({_id: req.params.id}).then(function(person){
         res.send(person)
-    }) 
+    })
     // r=es.send({type:'DELETE'})
 })
 
