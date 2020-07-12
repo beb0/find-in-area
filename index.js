@@ -8,6 +8,8 @@ mongoose.connect('mongodb://localhost/app1', { useUnifiedTopology: true,  useNew
 var app = express();
 const PORT = 8080;
 
+app.use(express.static('public'))
+
 //.use executes the middlewere (in this it executes then attach it to the request object)
 app.use(bodyParser.json())
 
